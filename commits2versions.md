@@ -4,7 +4,7 @@
 
 "Added a test, a builder for those who like them, lol": 1.2
 
-"asses a license.txt file": 1.3 (added*)
+"asses a license.txt file": 1.3 (added*, sorry)
 
 "added a weird test to the "canWindowSetupProperly" test": 1.4
 
@@ -15,5 +15,7 @@
 "Added text area support": 1.7
 
 "added popup support as well as password field support :)": 1.8
+                                                                              
+## "added configs, etc. this update is so large I can't even explain it, lol": 1.9
 
-__NOTE: everething except for versions seen above, they aren't versions :)__
+__NOTE: everything except for versions seen above, they aren't VERSIONS :)__
