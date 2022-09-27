@@ -20,7 +20,9 @@ public class TestWindow {
 		Window.addButton(10, 10, 15, -10, "Test Button", Color.MAGENTA, e -> {
 			System.out.println(Window.getButtonTitle() + "Has Been Clicked");
 		});
-		System.out.println("The Test Has Finished))");
+		if (Window.doesWindowExist()) {
+			System.out.println("The Test Has Finished))");
+		}
 	}
 	public static void main(String[] args) {
 			new Window(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT, true, true, "Test Window").windowBuilder().build();
