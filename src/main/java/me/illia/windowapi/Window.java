@@ -18,6 +18,7 @@ public class Window {
 	public static int WINDOW_WIDTH;
 	public static int WINDOW_HEIGHT;
 	private static String title;
+	public static final String THREE_DOTS = "...";
 	public static Stream.Builder<Window> WINDOW_BUILDER = new Stream.Builder<>() {
 		@Override
 		public void accept(Window window) {
