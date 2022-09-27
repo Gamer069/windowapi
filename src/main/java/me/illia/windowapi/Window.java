@@ -70,11 +70,14 @@ public class Window {
 		if (jPanel.isVisible()) windowExists = true;
 	}
 	public static JButton addButton(int buttonWidth, int buttonHeight, String title, @Nullable ActionListener actionListener) {
-		jPanel.add(jButton);
-		jButton.setSize(buttonWidth, buttonHeight);
-		jButton.setText(title);
-		if (actionListener != null) jButton.addActionListener(actionListener);
-		buttonTitle = title;
+		if (windowExists) {
+			jPanel.add(jButton);
+			jButton.setSize(buttonWidth, buttonHeight);
+			jButton.setText(title);
+			if (actionListener != null) jButton.addActionListener(actionListener);
+			buttonTitle = title;
+		}
+
 		return jButton;
 	}
 	private static class WindowHelper extends JFrame {
