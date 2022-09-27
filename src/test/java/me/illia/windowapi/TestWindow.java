@@ -22,6 +22,8 @@ public class TestWindow {
 		});
 		if (Window.doesWindowExist()) {
 			System.out.println("The Test Has Finished))");
+		} else {
+			System.exit(90);
 		}
 	}
 	public static void main(String[] args) {
