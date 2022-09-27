@@ -18,9 +18,9 @@ public class TestWindow {
 	void canWindowSetupProperly() {
 		new Window(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT, true, true, "Test Window").windowBuilder().build();
 		Window.addButton(10, 10, 15, -10, "Test Button", Color.MAGENTA, e -> {
-			System.out.println(Window.getButtonTitle() + "Has Been Clicked");
+			System.out.println("Test Button Has Been Clicked");
 		});
-		if (Window.doesWindowExist()) {
+		if (Window.isWindowExists()) {
 			System.out.println("The Test Has Finished))");
 		} else {
 			System.exit(90);
@@ -29,7 +29,7 @@ public class TestWindow {
 	public static void main(String[] args) {
 			new Window(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT, true, true, "Test Window").windowBuilder().build();
 			Window.addButton(10, 10, 15, -10, "Test Button", Color.MAGENTA, e -> {
-				System.out.println(Window.getButtonTitle() + "Has Been Clicked");
+				System.out.println("Test Button Has Been Clicked");
 			});
 	}
 }

@@ -6,19 +6,19 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Window {
 	private static final JPanel jPanel = new JPanel();
 	public static final JButton jButton = new JButton();
-	public static String buttonTitle;
 	private static boolean windowExists;
 	public static final int DEFAULT_WIDTH = 900;
 	public static final int DEFAULT_HEIGHT = 900;
 	public static int WINDOW_WIDTH;
 	public static int WINDOW_HEIGHT;
 	private static String title;
-	public static Stream.Builder<Window> WINDOW_BUILDER = new Stream.Builder<Window>() {
+	public static Stream.Builder<Window> WINDOW_BUILDER = new Stream.Builder<>() {
 		@Override
 		public void accept(Window window) {
 			window.windowBuilder();
@@ -35,6 +35,7 @@ public class Window {
 			return null;
 		}
 	};
+
 	public Window(int windowWidth, int windowHeight, boolean isResizeable, boolean isVisible, String title) {
 		makeWindow(windowWidth, windowHeight, isVisible, isResizeable, title);
 	}
@@ -70,11 +71,12 @@ public class Window {
 	}
 	public static JButton addButton(int buttonWidth, int buttonHeight, String title, @Nullable ActionListener actionListener) {
 		if (windowExists) {
+			ArrayList<JButton> jButtons = new ArrayList<>();
 			jPanel.add(jButton);
 			jButton.setSize(buttonWidth, buttonHeight);
 			jButton.setText(title);
 			if (actionListener != null) jButton.addActionListener(actionListener);
-			buttonTitle = title;
+			jButtons.add(jButton);
 		}
 
 		return jButton;
@@ -98,13 +100,9 @@ public class Window {
 			jButton.setText(title);
 			jButton.setBackground(backgroundColor);
 			if (actionListener != null) jButton.addActionListener(actionListener);
-			buttonTitle = title;
 			return jButton;
 	}
-	public static String getButtonTitle() {
-		return buttonTitle + " ";
-	}
-	public static boolean doesWindowExist() {
+	public static boolean isWindowExists() {
 		return windowExists;
 	}
 
