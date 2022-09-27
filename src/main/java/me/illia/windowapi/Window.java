@@ -66,8 +66,7 @@ public class Window {
 		while (windowExists) {
 				update();
 		}
-		if (jWindow.isVisible()) windowExists = true;
-		if (jPanel.isVisible()) windowExists = true;
+		if (jWindow.isVisible() || jPanel.isVisible()) windowExists = true;
 	}
 	public static JButton addButton(int buttonWidth, int buttonHeight, String title, @Nullable ActionListener actionListener) {
 		if (windowExists) {
