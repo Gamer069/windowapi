@@ -63,10 +63,8 @@ public class Window {
 			windowHelper.setTitle(title);
 			update();
 		}
-		for (int i = 0; i == i + 1; i++) {
-			while (windowExists) {
+		while (windowExists) {
 				update();
-			}
 		}
 		if (jWindow.isVisible()) windowExists = true;
 		if (jPanel.isVisible()) windowExists = true;
