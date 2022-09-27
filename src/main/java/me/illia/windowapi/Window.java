@@ -59,11 +59,9 @@ public class Window {
 			windowHelper.setSize(windowWidth, windowHeight);
 			windowHelper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			windowHelper.add(jPanel);
-			windowHelper.setVisible(true);
+			windowHelper.setVisible(isVisible);
 			windowHelper.setTitle(title);
 			update();
-		} else {
-			jWindow.setVisible(false);
 		}
 		for (int i = 0; i == i + 1; i++) {
 			while (windowExists) {
