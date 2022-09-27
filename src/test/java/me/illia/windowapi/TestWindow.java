@@ -1,9 +1,5 @@
 package me.illia.windowapi;
 
-import org.intellij.lang.annotations.MagicConstant;
-
-import javax.swing.border.TitledBorder;
-import javax.swing.text.Position;
 import java.awt.*;
 
 public class TestWindow {
