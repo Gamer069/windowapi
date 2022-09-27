@@ -63,7 +63,7 @@ public class Window {
 			windowHelper.setTitle(title);
 			update();
 		} else {
-			jWindow.setVisible(true);
+			jWindow.setVisible(false);
 		}
 		for (int i = 0; i == i + 1; i++) {
 			while (windowExists) {
