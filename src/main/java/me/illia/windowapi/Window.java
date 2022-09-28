@@ -75,11 +75,11 @@ public class Window {
 				Window.addButton(buttonWidth, buttonHeight, title, actionListener);
 				return this;
 			}
-			public WindowBuilder addButton(int buttonWidth, int buttonHeight, @MagicConstant @Nullable int x, @MagicConstant @Nullable int y, String title, Color bgColor, @Nullable Color fgColor, @Nullable ActionListener actionListener) {
+			public WindowBuilder addButton(int buttonWidth, int buttonHeight, @MagicConstant @Nullable int x, @MagicConstant @Nullable int y, String title, @Nullable Color bgColor, @Nullable Color fgColor, @Nullable ActionListener actionListener) {
 				Window.addButton(buttonWidth, buttonHeight, title, actionListener);
 				jButton.setOpaque(true);
-				jButton.setBackground(bgColor);
 				jButton.setBounds(x, y, buttonWidth, buttonHeight);
+				if (bgColor != null) jButton.setBackground(bgColor);
 				if (fgColor != null) jButton.setForeground(fgColor);
 				return this;
 			}
