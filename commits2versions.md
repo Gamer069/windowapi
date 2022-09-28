@@ -13,5 +13,3 @@
 "Added a builder for Window.java, made x, y position, color work (finally), etc.": 1.6
 
 __NOTE: all the "lol", "..." commits aren't a version, they are just me being stupid.__
-
-__NOTE: 1.5 and older is still 1.4 i can say, so please don't get confused__
