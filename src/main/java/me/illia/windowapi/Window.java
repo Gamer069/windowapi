@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class Window {
 	private static final JPanel jPanel = new JPanel();
@@ -18,29 +17,18 @@ public class Window {
 	public static int WINDOW_WIDTH;
 	public static int WINDOW_HEIGHT;
 	private static String title;
-	public static final String THREE_DOTS = "...";
-	public static Stream.Builder<Window> WINDOW_BUILDER = new Stream.Builder<>() {
-		@Override
-		public void accept(Window window) {
-			window.windowBuilder();
-		}
-
-		@Override
-		public Stream.Builder<Window> add(Window window) {
-			return Stream.Builder.super.add(window);
-		}
-
-		@Override
-		public Stream<Window> build() {
-			makeWindow(WINDOW_WIDTH, WINDOW_HEIGHT, true, true, getTitle());
-			return null;
-		}
-	};
+	public static JWindow jWindow = new JWindow();
+	public static WindowHelper windowHelper = new WindowHelper();
+	private static final WindowHelper.WindowBuilder WINDOW_BUILDER = new WindowHelper.WindowBuilder();
+	public static ArrayList<JButton> jButtons = new ArrayList<>();
+	public WindowHelper.WindowBuilder Window() {
+		return windowBuilder();
+	}
 
 	public Window(int windowWidth, int windowHeight, boolean isResizeable, boolean isVisible, String title) {
 		makeWindow(windowWidth, windowHeight, isVisible, isResizeable, title);
 	}
-	public Stream.Builder<Window> windowBuilder() {
+	public WindowHelper.WindowBuilder windowBuilder() {
 		return WINDOW_BUILDER;
 	}
 	public static String getTitle() {
@@ -51,12 +39,11 @@ public class Window {
 		makeWindow(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT, true, true, title);
 	}
 
-	private static void makeWindow(int windowWidth, int windowHeight, boolean isVisible, boolean isResizeable, String title) {
+	private static JWindow makeWindow(int windowWidth, int windowHeight, boolean isVisible, boolean isResizeable, String title) {
 		WINDOW_WIDTH = windowWidth;
 		WINDOW_HEIGHT = windowHeight;
 		Window.title = title;
-		JWindow jWindow = new JWindow();
-		WindowHelper windowHelper = new WindowHelper();
+
 		if (isVisible) {
 			windowHelper.setSize(windowWidth, windowHeight);
 			windowHelper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,10 +56,10 @@ public class Window {
 				update();
 		}
 		if (jWindow.isVisible() || jPanel.isVisible()) windowExists = true;
+		return jWindow;
 	}
 	public static JButton addButton(int buttonWidth, int buttonHeight, String title, @Nullable ActionListener actionListener) {
 		if (windowExists) {
-			ArrayList<JButton> jButtons = new ArrayList<>();
 			jPanel.add(jButton);
 			jButton.setSize(buttonWidth, buttonHeight);
 			jButton.setText(title);
@@ -83,10 +70,24 @@ public class Window {
 		return jButton;
 	}
 	private static class WindowHelper extends JFrame {
-		//TODO -- Make A Builder Pattern For addButton(); etc.
-
-		public WindowHelper() {
-
+		public static class WindowBuilder {
+			public WindowBuilder addButton(int buttonWidth, int buttonHeight, String title, ActionListener actionListener) {
+				Window.addButton(buttonWidth, buttonHeight, title, actionListener);
+				return this;
+			}
+			public WindowBuilder addButton(int buttonWidth, int buttonHeight, @MagicConstant @Nullable int x, @MagicConstant @Nullable int y, String title, Color bgColor, @Nullable Color fgColor, @Nullable ActionListener actionListener) {
+				Window.addButton(buttonWidth, buttonHeight, title, actionListener);
+				jButton.setOpaque(true);
+				jButton.setBackground(bgColor);
+				jButton.setBounds(x, y, buttonWidth, buttonHeight);
+				if (fgColor != null) jButton.setForeground(fgColor);
+				return this;
+			}
+			public WindowBuilder centerButton(int index) {
+				windowHelper.setLayout(new GridBagLayout());
+				windowHelper.add(jButtons.get(index), new GridBagConstraints());
+				return this;
+			}
 		}
 	}
 	private static void update() {
@@ -95,22 +96,7 @@ public class Window {
 			jPanel.updateUI();
 		}
 	}
-	public static JButton addButton(int buttonWidth, int buttonHeight, String title, Color backgroundColor, @Nullable ActionListener actionListener) {
-			jPanel.add(jButton);
-			jButton.setSize(buttonWidth, buttonHeight);
-			jButton.setText(title);
-			jButton.setBackground(backgroundColor);
-			if (actionListener != null) jButton.addActionListener(actionListener);
-			return jButton;
-	}
 	public static boolean isWindowExists() {
 		return windowExists;
-	}
-
-	public static JButton addButton(int buttonWidth, int buttonHeight, @MagicConstant int x, @MagicConstant int y, String title, Color backgroundColor, @Nullable ActionListener actionListener) {
-		addButton(buttonWidth, buttonHeight, title, actionListener);
-		jButton.setAlignmentX(x);
-		jButton.setAlignmentY(y);
-		return jButton;
 	}
 }
