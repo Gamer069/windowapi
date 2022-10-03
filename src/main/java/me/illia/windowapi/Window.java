@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Window {
+	private static final JButton jButton = new JButton();
 	private static final JPanel jPanel = new JPanel();
-	public static final JButton jButton = new JButton();
 	private static boolean windowExists;
 	public static final int DEFAULT_WIDTH = 900;
 	public static final int DEFAULT_HEIGHT = 900;
@@ -21,7 +21,8 @@ public class Window {
 	public static WindowHelper windowHelper = new WindowHelper();
 	private static final WindowHelper.WindowBuilder WINDOW_BUILDER = new WindowHelper.WindowBuilder();
 	public static ArrayList<JButton> jButtons = new ArrayList<>();
-	public WindowHelper.WindowBuilder Window() {
+	public static ArrayList<JTextArea> jTextFields = new ArrayList<JTextArea>();
+	public WindowHelper.WindowBuilder WindowBuilder() {
 		return windowBuilder();
 	}
 
@@ -69,23 +70,47 @@ public class Window {
 
 		return jButton;
 	}
+	public static JButton addButton(int buttonWidth, int buttonHeight, int x, int y, String title, @Nullable Color bgColor, @Nullable Color fgColor, @Nullable ActionListener actionListener) {
+		addButton(buttonWidth, buttonHeight, title, actionListener);
+		jButton.setOpaque(true);
+		jButton.setBounds(x, y, buttonWidth, buttonHeight);
+		if (bgColor != null) jButton.setBackground(bgColor);
+		if (fgColor != null) jButton.setForeground(fgColor);
+		return jButton;
+	}
+	public static JTextArea addTextArea(String defaultText, int width, int height, int x, int y) {
+		JTextArea jTextArea = new JTextArea(defaultText);
+		jTextArea.setBounds(x, y, width, height);
+		jTextArea.setVisible(true);
+		jTextArea.setText(defaultText);
+		jTextArea.setSize(width, height);
+		windowHelper.add(jTextArea);
+		jPanel.add(jTextArea);
+		jTextFields.add(jTextArea);
+		return jTextArea;
+	}
 	private static class WindowHelper extends JFrame {
 		public static class WindowBuilder {
 			public WindowBuilder addButton(int buttonWidth, int buttonHeight, String title, ActionListener actionListener) {
 				Window.addButton(buttonWidth, buttonHeight, title, actionListener);
 				return this;
 			}
-			public WindowBuilder addButton(int buttonWidth, int buttonHeight, @MagicConstant @Nullable int x, @MagicConstant @Nullable int y, String title, @Nullable Color bgColor, @Nullable Color fgColor, @Nullable ActionListener actionListener) {
-				Window.addButton(buttonWidth, buttonHeight, title, actionListener);
-				jButton.setOpaque(true);
-				jButton.setBounds(x, y, buttonWidth, buttonHeight);
-				if (bgColor != null) jButton.setBackground(bgColor);
-				if (fgColor != null) jButton.setForeground(fgColor);
+			public WindowBuilder addButton(int buttonWidth, int buttonHeight, @MagicConstant int x, @MagicConstant int y, String title, @Nullable Color bgColor, @Nullable Color fgColor, @Nullable ActionListener actionListener) {
+				Window.addButton(buttonWidth, buttonHeight, x, y, title, bgColor, fgColor, actionListener);
 				return this;
 			}
 			public WindowBuilder centerButton(int index) {
 				windowHelper.setLayout(new GridBagLayout());
 				windowHelper.add(jButtons.get(index), new GridBagConstraints());
+				return this;
+			}
+			public WindowBuilder centerTextArea(int index) {
+				windowHelper.setLayout(new GridBagLayout());
+				windowHelper.add(jTextFields.get(index), new GridBagConstraints());
+				return this;
+			}
+			public WindowBuilder addTextArea(String defaultText, int width, int height, int x, int y) {
+				Window.addTextArea(defaultText, width, height, x, y);
 				return this;
 			}
 		}
