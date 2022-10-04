@@ -12,4 +12,6 @@
 
 "Added a builder for Window.java, made x, y position, color work (finally), etc.": 1.6
 
+"Added text area support": 1.7
+
 __NOTE: all the "lol", "..." commits aren't a version, they are just me being stupid.__
