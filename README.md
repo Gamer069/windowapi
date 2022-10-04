@@ -32,5 +32,4 @@ Gradle dependency:
 		}
 	}
 ```
-Latest version: [![](https://jitpack.io/v/Gamer069/windowapi.svg)](https://jitpack.io/#Gamer069/windowapi)
-
+Latest version: 83b51368d5
