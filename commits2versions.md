@@ -14,4 +14,6 @@
 
 "Added text area support": 1.7
 
+"added popup support as well as password field support :)": 1.8
+
 __NOTE: all the "lol", "..." commits aren't a version, they are just me being stupid.__
