@@ -21,7 +21,9 @@ public class Window {
 	public static WindowHelper windowHelper = new WindowHelper();
 	private static final WindowHelper.WindowBuilder WINDOW_BUILDER = new WindowHelper.WindowBuilder();
 	public static ArrayList<JButton> jButtons = new ArrayList<>();
-	public static ArrayList<JTextArea> jTextFields = new ArrayList<JTextArea>();
+	public static ArrayList<JTextArea> jTextFields = new ArrayList<>();
+	public static ArrayList<JPopupMenu> jPopups = new ArrayList<>();
+	public static ArrayList<JPasswordField> jPasswordFields = new ArrayList<>();
 	public WindowHelper.WindowBuilder WindowBuilder() {
 		return windowBuilder();
 	}
@@ -44,12 +46,11 @@ public class Window {
 		WINDOW_WIDTH = windowWidth;
 		WINDOW_HEIGHT = windowHeight;
 		Window.title = title;
-
+		windowHelper.setVisible(isVisible);
 		if (isVisible) {
 			windowHelper.setSize(windowWidth, windowHeight);
 			windowHelper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			windowHelper.add(jPanel);
-			windowHelper.setVisible(isVisible);
 			windowHelper.setTitle(title);
 			update();
 		}
@@ -89,6 +90,30 @@ public class Window {
 		jTextFields.add(jTextArea);
 		return jTextArea;
 	}
+	public static JPopupMenu addPopupMenu(String label, boolean isVisible, int width, int height, int x, int y) {
+		JPopupMenu jPopup = new JPopupMenu(label);
+		jPopup.setToolTipText(label);
+		jPopup.setVisible(isVisible);
+		jPopup.setPopupSize(width, height);
+		jPopup.setBounds(x, y, width, height);
+		jPanel.add(jPopup);
+		jPopups.add(jPopup);
+		return jPopup;
+	}
+	public static JPasswordField addPasswordField(String text, int width, int height, int x, int y) {
+		JPasswordField jPasswordField = new JPasswordField(text);
+		jPasswordFields.add(jPasswordField);
+		jPasswordField.setFont(new Font(text, Font.BOLD, 12));
+		jPasswordField.setBounds(x, y, width, height);
+		return jPasswordField;
+	}
+	public static JPopupMenu addPopupMenu() {
+		JPopupMenu jPopup = new JPopupMenu();
+		jPopup.setVisible(true);
+		jPanel.add(jPopup);
+		jPopups.add(jPopup);
+		return jPopup;
+	}
 	private static class WindowHelper extends JFrame {
 		public static class WindowBuilder {
 			public WindowBuilder addButton(int buttonWidth, int buttonHeight, String title, ActionListener actionListener) {
@@ -99,9 +124,32 @@ public class Window {
 				Window.addButton(buttonWidth, buttonHeight, x, y, title, bgColor, fgColor, actionListener);
 				return this;
 			}
-			public WindowBuilder centerButton(int index) {
+
+
+			public WindowBuilder addTextArea(String defaultText, int width, int height, int x, int y) {
+				Window.addTextArea(defaultText, width, height, x, y);
+				return this;
+			}
+			public WindowBuilder addPopup(String title, boolean isVisible, int width, int height, int x, int y) {
+				Window.addPopupMenu(title, isVisible, width, height, x, y);
+				return this;
+			}
+			public WindowBuilder addPopup() {
+				Window.addPopupMenu();
+				return this;
+			}
+			public WindowBuilder addPasswordField(String text, int width, int height, int x, int y) {
+				Window.addPasswordField(text, width, height, x, y);
+				return this;
+			}
+			public WindowBuilder centerPasswordField(int index) {
 				windowHelper.setLayout(new GridBagLayout());
-				windowHelper.add(jButtons.get(index), new GridBagConstraints());
+				windowHelper.add(jPasswordFields.get(index), new GridBagConstraints());
+				return this;
+			}
+			public WindowBuilder centerPopup(int index) {
+				windowHelper.setLayout(new GridBagLayout());
+				windowHelper.add(jPopups.get(index), new GridBagConstraints());
 				return this;
 			}
 			public WindowBuilder centerTextArea(int index) {
@@ -109,8 +157,9 @@ public class Window {
 				windowHelper.add(jTextFields.get(index), new GridBagConstraints());
 				return this;
 			}
-			public WindowBuilder addTextArea(String defaultText, int width, int height, int x, int y) {
-				Window.addTextArea(defaultText, width, height, x, y);
+			public WindowBuilder centerButton(int index) {
+				windowHelper.setLayout(new GridBagLayout());
+				windowHelper.add(jButtons.get(index), new GridBagConstraints());
 				return this;
 			}
 		}
