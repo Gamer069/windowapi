@@ -23,7 +23,7 @@ public class TextConfig implements Config {
         TextConfig.forPassword = forPassword;
         return new TextConfig(width, height, x, y);
     }
-    protected JTextComponent getField() {
+    protected JTextComponent getUsedField() {
         return forPassword ? passwordField : textArea;
     }
 
@@ -34,19 +34,19 @@ public class TextConfig implements Config {
     }
     TextConfig(int width, int height, int x, int y) {
         new TextConfig(width, height);
-        getField().setBounds(x, y, width, height);
+        getUsedField().setBounds(x, y, width, height);
     }
     public int getXPos() {
-        return getField().getX();
+        return getUsedField().getX();
     }
     public int getYPos() {
-        return getField().getY();
+        return getUsedField().getY();
     }
     public int getWidth() {
-        return getField().getWidth();
+        return getUsedField().getWidth();
     }
     public int getHeight() {
-        return getField().getHeight();
+        return getUsedField().getHeight();
     }
 
     public static class TextConfigBuilder implements ConfigBuilder {
