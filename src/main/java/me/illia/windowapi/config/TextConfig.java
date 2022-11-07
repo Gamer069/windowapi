@@ -4,6 +4,7 @@ import me.illia.windowapi.config.other.Config;
 import me.illia.windowapi.config.other.ConfigBuilder;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 
 public class TextConfig implements Config {
     public static TextConfig INSTANCE;
@@ -14,9 +15,6 @@ public class TextConfig implements Config {
     public TextConfigBuilder create() {
         return new TextConfigBuilder();
     }
-    public void toPassword() {
-        forPassword = true;
-    }
     public static TextConfig init(int width, int height, boolean forPassword) {
         TextConfig.forPassword = forPassword;
         return new TextConfig(width, height);
@@ -25,6 +23,9 @@ public class TextConfig implements Config {
         TextConfig.forPassword = forPassword;
         return new TextConfig(width, height, x, y);
     }
+    protected JTextComponent getField() {
+        return forPassword ? passwordField : textArea;
+    }
 
     TextConfig(int width, int height) {
         INSTANCE = this;
@@ -32,30 +33,20 @@ public class TextConfig implements Config {
         else textArea = new JTextArea();
     }
     TextConfig(int width, int height, int x, int y) {
-        INSTANCE = this;
-        if (forPassword) {
-            passwordField = new JPasswordField();
-            passwordField.setBounds(x, y, width, height);
-        } else {
-            textArea = new JTextArea();
-            textArea.setBounds(x, y, width, height);
-        }
+        new TextConfig(width, height);
+        getField().setBounds(x, y, width, height);
     }
     public int getXPos() {
-        if (forPassword) return passwordField.getX();
-        else return textArea.getX();
+        return getField().getX();
     }
     public int getYPos() {
-        if (forPassword) return passwordField.getY();
-        else return textArea.getY();
+        return getField().getY();
     }
     public int getWidth() {
-        if (forPassword) return passwordField.getWidth();
-        else return textArea.getY();
+        return getField().getWidth();
     }
     public int getHeight() {
-        if (forPassword) return passwordField.getHeight();
-        else return textArea.getHeight();
+        return getField().getHeight();
     }
 
     public static class TextConfigBuilder implements ConfigBuilder {
