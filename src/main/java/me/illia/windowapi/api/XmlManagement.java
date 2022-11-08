@@ -38,8 +38,8 @@ public class XmlManagement {
                     String useJavaFX = e.getElementsByTagName("isNative").item(0).getTextContent();
                     String windowWidth = e.getElementsByTagName("windowWidth").item(0).getTextContent();
                     String windowHeight = e.getElementsByTagName("windowHeight").item(0).getTextContent();
-                    String isVisible = e.getElementsByTagName("isWindowVisible").item(0).getTextContent();
-                    String isResizable = e.getElementsByTagName("isWindowResizable").item(0).getTextContent();
+                    String isVisible = e.getElementsByTagName("isVisible").item(0).getTextContent();
+                    String isResizable = e.getElementsByTagName("isResizable").item(0).getTextContent();
 
                     System.out.println("isNative = " + useJavaFX);
                     System.out.println("windowWidth = " + windowWidth);
@@ -58,11 +58,11 @@ public class XmlManagement {
         }
     }
     protected static boolean checkBoolean(String val, String nodeName) {
-        if (val.equals("true")) return true;
-        else if (val.equals("false")) return false;
-        else {
+        Boolean result = Boolean.parseBoolean(val);
+        if (!result.toString().equals("true") && !result.toString().equals("false")) {
             throw new IllegalStateException("Expected value true | false, but found " + val + ", config.xml at " + startNode(nodeName) + val + endNode(nodeName));
         }
+        return result;
     }
     protected static int checkInt(String val) {
         return Integer.parseInt(val);

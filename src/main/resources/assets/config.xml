@@ -1,7 +1,0 @@
-<config>
-    <isNative>true</isNative>
-    <windowWidth>900</windowWidth>
-    <windowHeight>900</windowHeight>
-    <isWindowVisible>true</isWindowVisible>
-    <isWindowResizable>true</isWindowResizable>
-</config>

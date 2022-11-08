@@ -27,7 +27,7 @@ public class Window {
 
 	public Window(String title) {
 		createWindow(title);
-		XmlManagement.readConfigXml();
+		PropertiesManagement.readConfigProperties();
 	}
 	public WindowHelper.WindowBuilder windowBuilder() {
 		return WINDOW_BUILDER;
