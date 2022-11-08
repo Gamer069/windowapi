@@ -59,7 +59,7 @@ public class Window {
 			jToggleButton.addActionListener(actionListener);
 			J_PANEL.add(jToggleButton);
 			jToggleButtons.add(jToggleButton);
-			WINDOW_HELPER.add(jToggleButton, BorderLayout.CENTER);
+			WINDOW_HELPER.add(jToggleButton, "Center");
 			return;
 		}
 		throw new IllegalArgumentException("Sorry, but " + buttonType + " isn't a BUTTON type");
